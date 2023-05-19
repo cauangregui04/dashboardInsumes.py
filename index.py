@@ -116,7 +116,7 @@ selic = pd.DataFrame(selic, columns=['Date', 'selic'])
 
 # ===== Reading n cleaning File ====== #
 
-df = pd.read_excel(r"C:\Users\cvivan\Documents\Projeto-envio-mensal-gestor\FORNECEDORES.xlsx",sheet_name= "FOR")
+df = pd.read_excel(r"template",sheet_name= "sheet")
 df = pd.DataFrame(df, columns=['FORNECEDOR', 'CATEGORIA', 'V. TOTAL', 'DATE'])
 
 df_cru = df.copy()
@@ -133,18 +133,6 @@ layout = Layout(
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)'
 )
-
-#Comparacao mês anterior card
-df7 = df.groupby(['DATE'])["V. TOTAL"].sum()
-df7 = df7.reset_index()
-
-fig37 = go.Figure(layout=layout)
-fig37.add_trace(go.Indicator(mode='number+delta',
-            title = {"text": f"<span style='font-size:150%'>{df7['DATE'].iloc[-1]} - Gastos do mês</span><br><span style='font-size:70%'>Em gastos - em relacao ao mês anterior</span><br>"},
-            value = df7['V. TOTAL'].iloc[-1],
-            number = {'prefix': "R$"},
-            delta = {'relative': True, 'valueformat': '.1%', 'reference': df7['V. TOTAL'].iloc[-2]}))
-fig37.update_layout(width=300, height=300, font_size=(15), title_pad_b=10, margin_l=80)
 
 dados_fechamento_mensal = pd.DataFrame(dados_fechamento_mensal, columns=['Date','USD'])
 
@@ -183,7 +171,7 @@ app.layout = dbc.Container(children=[
                                 ThemeSwitchAIO(aio_id="theme", themes=[url_theme1, url_theme2])
                             ]),
                             dbc.Col([
-                                html.Img(src=r'assets/rni.png', width=100, style={'padding-left': '10px'}),
+                                html.Img(src=r'assets/template.png', width=100, style={'padding-left': '10px'}),
                             ])
                         ], style={'display': 'flex', 'align-items': 'center'})
                     ], class_name='teste')]),
